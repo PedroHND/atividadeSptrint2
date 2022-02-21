@@ -103,7 +103,7 @@ public class Produto throws SQLException{
 
 	}
 
-	private void atualizaProduto() throws SQLException {
+	public void atualizaProduto() throws SQLException {
 		Conexao connection = new Conexao();
 		Connection con = Conexao.conexao();
 		
@@ -124,9 +124,9 @@ public class Produto throws SQLException{
 		System.out.println("Desconto");
 		scan.nextDouble(desconto);
 		System.out.println("Data formato (dia/mês/ano)");
-			String dataDigitada = scan.next();
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			Date dataInicio = (Date) formatter.parse(dataDigitada);
+		String dataDigitada = scan.next();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Date dataInicio = (Date) formatter.parse(dataDigitada);
 		if(rs.next()) {
 			stmi = con.prepareStatement("UPDATE PRODUTOS SET ID=?, NOME=?, DESCRICAO=?, DESCONTO=?, DATA_INICIO=? WHERE ID = ?");
 			stmi.setInt(1, id);
@@ -148,4 +148,32 @@ public class Produto throws SQLException{
 		scan.close();
 		con.close();
 	}	
+
+	public void delProduto() throws SQLException {
+		
+		Conexao connection = new Conexao();
+		Connection con = Conexao.conexao();
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Digite o id que deseja apagar o produto");
+		PreparedStatement stmi = con.prepareStatement("DELETE from produto where id = ?");
+		stmi.setInt(1, id);
+		
+		con.close();
+		scan.close();
+		
+	}
+
+	public void pesquisaProduto() throws SQLException{
+		Conexao connection = new Conexao();
+		Connection con = Conexao.conexao();
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Digite o nome que deseja pesquisar");
+		PreparedStatement stmi = con.prepareStatement("SELECT * from produto where like '% ? %' ");
+		stmi.setString(1, nome);
+		
+		con.close();
+		scan.close();
+	}
 }
