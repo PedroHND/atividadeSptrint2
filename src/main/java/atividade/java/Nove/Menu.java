@@ -42,6 +42,7 @@ public class Menu {
 			pro.pesquisaProduto();
 		}
 		}while(num!=0); 
+		System.out.println("Obrigado por utilizar o nosso sistema");
 	}
 
 
